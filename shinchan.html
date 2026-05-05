@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shin-chan Game</title>
+    <style>
+        body {
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        #shinchan {
+            width: 200px;
+            height: 200px;
+            background-color: pink; /* Placeholder for Shin-chan */
+            position: relative;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        #chair {
+            width: 80%;
+            height: 20px;
+            background-color: brown;
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+        }
+        #speech {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="shinchan">
+        <div id="chair"></div>
+        <span id="speech"></span>
+    </div>
+    <button id="buttonA">Press A</button>
+    <button id="buttonB">Press B</button>
+    <script>
+        document.getElementById('buttonA').onclick = function() {
+            document.getElementById('speech').innerText = 'hi Kirti';
+        };
+        document.getElementById('buttonB').onclick = function() {
+            document.getElementById('speech').innerText = 'how are you kirti';
+        };
+    </script>
+</body>
+</html>
