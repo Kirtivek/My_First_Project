@@ -3,54 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shin-chan Game</title>
+    <title>Shin-chan Interactive Game</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: lightblue;
+            background: linear-gradient(180deg, #ADD8E6 0%, #87CEEB 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
         }
-        #shinchan {
-            width: 200px;
-            height: 200px;
-            background-color: pink; /* Placeholder for Shin-chan */
-            position: relative;
-            border-radius: 10px;
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #FF69B4;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .game-area {
+            background: linear-gradient(180deg, #ADD8E6 0%, #87CEEB 100%);
+            width: 400px;
+            height: 500px;
+            border-radius: 15px;
             display: flex;
             justify-content: center;
-            align-items: flex-end;
+            align-items: center;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        #chair {
-            width: 80%;
-            height: 20px;
-            background-color: brown;
+
+        .speech-bubble {
             position: absolute;
-            bottom: 0;
-            left: 10%;
+            top: 30px;
+            background: white;
+            border: 3px solid #FF69B4;
+            border-radius: 15px;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            display: none;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        #speech {
-            margin-top: 20px;
-            font-size: 20px;
+
+        .speech-bubble.active {
+            display: block;
+        }
+
+        /* Character */
+        .character {
+            position: relative;
+            width: 200px;
+            height: 250px;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #btnA {
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+            color: white;
+        }
+
+        #btnA:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        #btnB {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            color: white;
+        }
+
+        #btnB:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .instructions {
+            color: #333;
+            font-size: 14px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <div id="shinchan">
-        <div id="chair"></div>
-        <span id="speech"></span>
+    <div class="container">
+        <h1>💕 Shin-chan Game 💕</h1>
+        
+        <div class="game-area">
+            <div class="speech-bubble" id="speech"></div>
+            
+            <div class="character">
+                <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Chair -->
+                    <rect x="30" y="140" width="140" height="60" fill="#8B4513" stroke="#654321" stroke-width="2" rx="5"/>
+                    <rect x="40" y="200" width="15" height="35" fill="#654321"/>
+                    <rect x="145" y="200" width="15" height="35" fill="#654321"/>
+                    
+                    <!-- Shorts (Black) -->
+                    <rect x="60" y="120" width="80" height="30" fill="#000000" rx="5"/>
+                    
+                    <!-- Legs -->
+                    <rect x="75" y="150" width="12" height="40" fill="#FDBCB4" rx="6"/>
+                    <rect x="113" y="150" width="12" height="40" fill="#FDBCB4" rx="6"/>
+                    
+                    <!-- Shoes -->
+                    <ellipse cx="81" cy="192" rx="9" ry="5" fill="#333333"/>
+                    <ellipse cx="119" cy="192" rx="9" ry="5" fill="#333333"/>
+                    
+                    <!-- T-shirt (Pink) -->
+                    <ellipse cx="100" cy="85" rx="42" ry="45" fill="#FF69B4" stroke="#FF1493" stroke-width="2"/>
+                    
+                    <!-- Arms -->
+                    <rect x="35" y="70" width="18" height="50" fill="#FDBCB4" rx="8"/>
+                    <rect x="147" y="70" width="18" height="50" fill="#FDBCB4" rx="8"/>
+                    
+                    <!-- Hands -->
+                    <circle cx="44" cy="125" r="8" fill="#FDBCB4"/>
+                    <circle cx="156" cy="125" r="8" fill="#FDBCB4"/>
+                    
+                    <!-- Head -->
+                    <circle cx="100" cy="35" r="32" fill="#FDBCB4" stroke="#F0A090" stroke-width="2"/>
+                    
+                    <!-- Hair -->
+                    <path d="M 70 20 Q 70 5 100 2 Q 130 5 130 20" fill="#000000"/>
+                    <path d="M 75 15 Q 75 8 88 6" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M 125 15 Q 125 8 112 6" stroke="#000000" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Eyes -->
+                    <circle cx="85" cy="30" r="3.5" fill="#000000"/>
+                    <circle cx="115" cy="30" r="3.5" fill="#000000"/>
+                    <circle cx="85.5" cy="28" r="1" fill="#ffffff"/>
+                    <circle cx="115.5" cy="28" r="1" fill="#ffffff"/>
+                    
+                    <!-- Eyebrows -->
+                    <path d="M 80 23 Q 85 21 90 23" stroke="#000000" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M 110 23 Q 115 21 120 23" stroke="#000000" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Nose -->
+                    <line x1="100" y1="32" x2="100" y2="42" stroke="#000000" stroke-width="1"/>
+                    
+                    <!-- Mouth (Big smile) -->
+                    <path d="M 88 48 Q 100 56 112 48" stroke="#FF1493" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Rose in hand -->
+                    <g>
+                        <!-- Stem -->
+                        <line x1="156" y1="125" x2="156" y2="155" stroke="#228B22" stroke-width="2"/>
+                        <!-- Rose -->
+                        <circle cx="156" cy="115" r="6" fill="#FF0000"/>
+                        <circle cx="150" cy="119" r="4" fill="#FF1493"/>
+                        <circle cx="162" cy="119" r="4" fill="#FF1493"/>
+                        <circle cx="150" cy="110" r="3" fill="#FF0000"/>
+                        <circle cx="162" cy="110" r="3" fill="#FF0000"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="btnA">Press A</button>
+            <button id="btnB">Press B</button>
+        </div>
+
+        <div class="instructions">
+            <p><strong>Button A:</strong> Shin-chan says "Hi Kirti"</p>
+            <p><strong>Button B:</strong> Shin-chan says "How are you Kirti"</p>
+        </div>
     </div>
-    <button id="buttonA">Press A</button>
-    <button id="buttonB">Press B</button>
+
     <script>
-        document.getElementById('buttonA').onclick = function() {
-            document.getElementById('speech').innerText = 'hi Kirti';
-        };
-        document.getElementById('buttonB').onclick = function() {
-            document.getElementById('speech').innerText = 'how are you kirti';
-        };
+        const speechBubble = document.getElementById('speech');
+        const btnA = document.getElementById('btnA');
+        const btnB = document.getElementById('btnB');
+        let timeout;
+
+        function showMessage(message) {
+            clearTimeout(timeout);
+            speechBubble.textContent = message;
+            speechBubble.classList.add('active');
+            
+            timeout = setTimeout(() => {
+                speechBubble.classList.remove('active');
+            }, 3000);
+        }
+
+        btnA.addEventListener('click', () => {
+            showMessage('Hi Kirti 👋');
+        });
+
+        btnB.addEventListener('click', () => {
+            showMessage('How are you Kirti 💕');
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'a') {
+                showMessage('Hi Kirti 👋');
+            } else if (e.key.toLowerCase() === 'b') {
+                showMessage('How are you Kirti 💕');
+            }
+        });
     </script>
 </body>
 </html>
